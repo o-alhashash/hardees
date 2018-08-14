@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Items' List Page{% endblock title %}
+
+{% block body %}
+<div class="card-deck">
+    {% for burger in object_list %}
+    <div class="card text-center" style="width: 18rem;">
+        {% if burger.pic %}
+        <img class="card-img-top" src="{{burger.pic.url}}" alt="">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{burger.name}}</h5>
+            <p class="card-text">{{burger.description}}</p>
+            <a href="{{burger.get_absolute_url}}" class="btn btn-primary">Check it out!</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

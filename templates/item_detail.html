@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Item Detail Page{% endblock title %}
+
+{% block body %}
+<div class="card-deck">
+    <div class="card text-center">
+        {% if object.pic %}
+        <img class="card-img" src="{{object.pic.url}}" alt="">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{object.name}}</h5>
+            <p class="card-text">{{object.description}}</p>
+            <p class="card-text">
+                <small class="text-muted">{{object.price}}</small>
+            </p>
+            <p>
+                <a href="{% url 'items' %}" class="btn btn-primary">Back to main menu</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock body %}

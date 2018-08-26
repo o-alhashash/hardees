@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Item Detail Page{% endblock title %}
+
+{% block body %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <br/>
+    <input type="submit" value="Confirm">
+</form>
+{% endblock body %}

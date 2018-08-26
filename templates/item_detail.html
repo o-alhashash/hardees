@@ -15,7 +15,13 @@
                 <small class="text-muted">{{object.price}}</small>
             </p>
             <p>
+                {% if user.is_superuser %}
+                <a href="{% url 'item-update' object.id %}" class="btn btn-warning">Update this item?</a>
+                {% endif %}
                 <a href="{% url 'items' %}" class="btn btn-primary">Back to main menu</a>
+                {% if user.is_superuser %}
+                <a href="{% url 'item-delete' object.id %}" class="btn btn-danger">Delete this item?</a>
+                {% endif %}
             </p>
         </div>
     </div>

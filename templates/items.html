@@ -1,20 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load my_tags %}
 
 {% block title %}Items' List Page{% endblock title %}
 
 {% block body %}
-<div class="card-deck">
+<div class="card-group">
     {% for burger in object_list %}
     <div class="card text-center" style="width: 18rem;">
-        {% if burger.pic %}
         <img class="card-img-top" src="{{burger.pic.url}}" alt="">
-        {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{burger.name}}</h5>
+            {% comment %}
             <p class="card-text">{{burger.description}}</p>
-            <a href="{{burger.get_absolute_url}}" class="btn btn-primary">Check it out!</a>
+            {% endcomment %}
+            <p class="card-text">{{burger.price}}</p>
+        </div>
+        <div class="card-footer">
+            {% autoescape off %}
+            {% item_liked burger request.user.id %}
+            {% endautoescape %}
+            {{burger.total_likes}}
+            <a style="margin-left:5px" href="{{burger.get_absolute_url}}" class="btn btn-primary">Check it out!</a>
         </div>
     </div>
     {% endfor %}
 </div>
 {% endblock body %}
+
+{% block javascript %}
+<script>
+function like_item(burgerId) {
+      $.ajax({
+               type: "POST",
+               url: "{% url 'like-item' %}",
+               data: {'id': burgerId, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+               dataType: "json",
+               success: location.reload(),
+                error: function(rs, e) {
+                       console.log(rs.responseText + $(this).attr('id'));
+                }
+          });
+    }
+
+</script>
+{% endblock javascript %}
